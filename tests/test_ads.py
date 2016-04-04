@@ -21,7 +21,7 @@ __license__ = """
 """
 __author__ = 'Sébastien GALLET aka bibi21000'
 __email__ = 'bibi21000@gmail.com'
-__copyright__ = "Copyright © 2013-2014-2015 Sébastien GALLET aka bibi21000"
+__copyright__ = "Copyright © 2013-2014-2015-2016 Sébastien GALLET aka bibi21000"
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -44,7 +44,7 @@ from janitoo.utils import TOPIC_NODES, TOPIC_NODES_REPLY, TOPIC_NODES_REQUEST
 from janitoo.utils import TOPIC_BROADCAST_REPLY, TOPIC_BROADCAST_REQUEST
 from janitoo.utils import TOPIC_VALUES_USER, TOPIC_VALUES_CONFIG, TOPIC_VALUES_SYSTEM, TOPIC_VALUES_BASIC
 
-class TestBNOComponent(JNTTComponent, JNTTComponentCommon):
+class TestADSComponent(JNTTComponent, JNTTComponentCommon):
     """Test the component
     """
     component_name = "rpii2c.ads"

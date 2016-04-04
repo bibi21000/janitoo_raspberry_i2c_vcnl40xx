@@ -24,7 +24,7 @@ __license__ = """
 """
 __author__ = 'Sébastien GALLET aka bibi21000'
 __email__ = 'bibi21000@gmail.com'
-__copyright__ = "Copyright © 2013-2014-2015 Sébastien GALLET aka bibi21000"
+__copyright__ = "Copyright © 2013-2014-2015-2016 Sébastien GALLET aka bibi21000"
 
 import logging
 logger = logging.getLogger(__name__)
@@ -58,7 +58,7 @@ assert(COMMAND_DESC[COMMAND_DOC_RESOURCE] == 'COMMAND_DOC_RESOURCE')
 def make_ads(**kwargs):
     return ADSComponent(**kwargs)
 
-class BNOComponent(JNTComponent):
+class ADSComponent(JNTComponent):
     """ A generic component for gpio """
 
     def __init__(self, bus=None, addr=None, **kwargs):
