@@ -39,7 +39,7 @@ from janitoo.value import JNTValue
 from janitoo.component import JNTComponent
 from janitoo_raspberry_i2c.bus_i2c import I2CBus
 
-from Adafruit_BNO055 import BNO055
+from Adafruit_ADS1x15 import ADS1115
 
 ##############################################################
 #Check that we are in sync with the official command classes
@@ -55,8 +55,8 @@ assert(COMMAND_DESC[COMMAND_WEB_RESOURCE] == 'COMMAND_WEB_RESOURCE')
 assert(COMMAND_DESC[COMMAND_DOC_RESOURCE] == 'COMMAND_DOC_RESOURCE')
 ##############################################################
 
-def make_bno(**kwargs):
-    return BNOComponent(**kwargs)
+def make_ads(**kwargs):
+    return ADSComponent(**kwargs)
 
 class BNOComponent(JNTComponent):
     """ A generic component for gpio """
@@ -64,10 +64,10 @@ class BNOComponent(JNTComponent):
     def __init__(self, bus=None, addr=None, **kwargs):
         """
         """
-        oid = kwargs.pop('oid', 'rpii2c.bno')
+        oid = kwargs.pop('oid', 'rpii2c.ads')
         name = kwargs.pop('name', "Input")
-        product_name = kwargs.pop('product_name', "BMP")
-        product_type = kwargs.pop('product_type', "Temperature/altitude/pressure sensor")
+        product_name = kwargs.pop('product_name', "ADS")
+        product_type = kwargs.pop('product_type', "Analog to binary converter")
         product_manufacturer = kwargs.pop('product_manufacturer', "Janitoo")
         JNTComponent.__init__(self, oid=oid, bus=bus, addr=addr, name=name,
                 product_name=product_name, product_type=product_type, product_manufacturer="Janitoo", **kwargs)
@@ -76,33 +76,26 @@ class BNOComponent(JNTComponent):
         uuid="addr"
         self.values[uuid] = self.value_factory['config_integer'](options=self.options, uuid=uuid,
             node_uuid=self.uuid,
-            help='The I2C address of the BNO component',
+            help='The I2C address of the ADS component',
             label='Addr',
             default=0x77,
         )
-        uuid="reset_pin"
-        self.values[uuid] = self.value_factory['config_integer'](options=self.options, uuid=uuid,
+        uuid="data"
+        self.values[uuid] = self.value_factory['sensor_integer'](options=self.options, uuid=uuid,
             node_uuid=self.uuid,
-            help='The reset pin',
-            label='Rst pin',
-            default=None,
-        )
-        uuid="temperature"
-        self.values[uuid] = self.value_factory['sensor_temperature'](options=self.options, uuid=uuid,
-            node_uuid=self.uuid,
-            help='The temperature',
-            label='Temp',
-            get_data_cb=self.temperature,
+            help='The data',
+            label='data',
+            get_data_cb=self.read_data,
         )
         poll_value = self.values[uuid].create_poll_value(default=300)
         self.values[poll_value.uuid] = poll_value
 
         self.sensor = None
 
-    def temperature(self, node_uuid, index):
+    def read_data(self, node_uuid, index):
         self._bus.i2c_acquire()
         try:
-            data = self.sensor.read_temperature()
+            data = self.sensor.read_temp()
             ret = float(data)
         except:
             logger.exception('[%s] - Exception when retrieving temperature', self.__class__.__name__)
@@ -125,7 +118,7 @@ class BNOComponent(JNTComponent):
         JNTComponent.start(self, mqttc, trigger_thread_reload_cb)
         self._bus.i2c_acquire()
         try:
-            self.sensor = BNO055.BNO055(rst=self.values["reset_pin"].data, address=self.values["addr"].data, i2c=self._bus._ada_i2c)
+            self.sensor = ADS1115(address=self.values["addr"].data, i2c=self._bus._ada_i2c)
         except:
             logger.exception("[%s] - Can't start component", self.__class__.__name__)
         finally:
