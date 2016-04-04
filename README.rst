@@ -1,9 +1,9 @@
-.. image:: https://travis-ci.org/bibi21000/janitoo_raspberry_i2c_bno.svg?branch=master
-    :target: https://travis-ci.org/bibi21000/janitoo_raspberry_i2c_bno
+.. image:: https://travis-ci.org/bibi21000/janitoo_raspberry_i2c_ads1x15.svg?branch=master
+    :target: https://travis-ci.org/bibi21000/janitoo_raspberry_i2c_ads1x15
     :alt: Travis status
 
-.. image:: https://coveralls.io/repos/bibi21000/janitoo_raspberry_i2c_bno/badge.svg?branch=master&service=github
-    :target: https://coveralls.io/github/bibi21000/janitoo_raspberry_i2c_bno?branch=master
+.. image:: https://coveralls.io/repos/bibi21000/janitoo_raspberry_i2c_ads1x15/badge.svg?branch=master&service=github
+    :target: https://coveralls.io/github/bibi21000/janitoo_raspberry_i2c_ads1x15?branch=master
     :alt: Coveralls results
 
 ===============
