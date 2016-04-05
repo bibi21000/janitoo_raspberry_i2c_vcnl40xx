@@ -39,7 +39,7 @@ from janitoo.value import JNTValue
 from janitoo.component import JNTComponent
 from janitoo_raspberry_i2c.bus_i2c import I2CBus
 
-from Adafruit_ADS1x15 import ADS1115
+from Adafruit_LED_Backpack import Matrix8x8
 
 ##############################################################
 #Check that we are in sync with the official command classes
@@ -55,19 +55,19 @@ assert(COMMAND_DESC[COMMAND_WEB_RESOURCE] == 'COMMAND_WEB_RESOURCE')
 assert(COMMAND_DESC[COMMAND_DOC_RESOURCE] == 'COMMAND_DOC_RESOURCE')
 ##############################################################
 
-def make_ads(**kwargs):
-    return ADSComponent(**kwargs)
+def make_m8x8(**kwargs):
+    return M8X8Component(**kwargs)
 
-class ADSComponent(JNTComponent):
+class M8X8Component(JNTComponent):
     """ A generic component for gpio """
 
     def __init__(self, bus=None, addr=None, **kwargs):
         """
         """
-        oid = kwargs.pop('oid', 'rpii2c.ads')
+        oid = kwargs.pop('oid', 'rpii2c.m8x8')
         name = kwargs.pop('name', "Input")
-        product_name = kwargs.pop('product_name', "ADS")
-        product_type = kwargs.pop('product_type', "Analog to binary converter")
+        product_name = kwargs.pop('product_name', "Matrix 8x8")
+        product_type = kwargs.pop('product_type', "Matrix 8x8")
         product_manufacturer = kwargs.pop('product_manufacturer', "Janitoo")
         JNTComponent.__init__(self, oid=oid, bus=bus, addr=addr, name=name,
                 product_name=product_name, product_type=product_type, product_manufacturer="Janitoo", **kwargs)
@@ -76,49 +76,26 @@ class ADSComponent(JNTComponent):
         uuid="addr"
         self.values[uuid] = self.value_factory['config_integer'](options=self.options, uuid=uuid,
             node_uuid=self.uuid,
-            help='The I2C address of the ADS component',
+            help='The I2C address of the Matrix component',
             label='Addr',
-            default=0x77,
+            default=0x70,
         )
-        uuid="data"
-        self.values[uuid] = self.value_factory['sensor_integer'](options=self.options, uuid=uuid,
-            node_uuid=self.uuid,
-            help='The data',
-            label='data',
-            get_data_cb=self.read_data,
-        )
-        poll_value = self.values[uuid].create_poll_value(default=300)
-        self.values[poll_value.uuid] = poll_value
-
-        self.sensor = None
-
-    def read_data(self, node_uuid, index):
-        self._bus.i2c_acquire()
-        try:
-            data = self.sensor.read_temp()
-            ret = float(data)
-        except:
-            logger.exception('[%s] - Exception when retrieving temperature', self.__class__.__name__)
-            ret = None
-        finally:
-            self._bus.i2c_release()
-        return ret
+        self.display = None
 
     def check_heartbeat(self):
         """Check that the component is 'available'
 
         """
-        if 'temperature' not in self.values:
-            return False
-        return self.values['temperature'].data is not None
+        return True
 
-    def start(self, mqttc, trigger_thread_reload_cb=None):
+    def start(self, mqttc):
         """Start the bus
         """
-        JNTComponent.start(self, mqttc, trigger_thread_reload_cb)
+        JNTComponent.start(self, mqttc)
         self._bus.i2c_acquire()
         try:
-            self.sensor = ADS1115(address=self.values["addr"].data, i2c=self._bus._ada_i2c)
+            self.display = Matrix8x8.Matrix8x8(address=self.values["addr"].data, i2c=self._bus._ada_i2c)
+            self.display.begin()
         except:
             logger.exception("[%s] - Can't start component", self.__class__.__name__)
         finally:
@@ -128,4 +105,4 @@ class ADSComponent(JNTComponent):
         """
         """
         JNTComponent.stop(self)
-        self.sensor = None
+        self.display = None
