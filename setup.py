@@ -99,7 +99,7 @@ setup(
       'https://github.com/adafruit/Adafruit_Python_LED_Backpack/archive/master.zip#egg=Adafruit_LED_Backpack',
     ],
     entry_points = {    "janitoo.components": [
-        "rpii2c.m8x8 = janitoo_raspberry_i2c_ht16k33.ads:make_m8x8",
+        "rpii2c.m8x8 = janitoo_raspberry_i2c_ht16k33.ht16k33:make_m8x8",
         ],
     },
 )
