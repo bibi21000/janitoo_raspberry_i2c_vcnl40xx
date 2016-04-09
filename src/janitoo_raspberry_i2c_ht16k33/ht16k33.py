@@ -39,7 +39,11 @@ from janitoo.value import JNTValue
 from janitoo.component import JNTComponent
 from janitoo_raspberry_i2c.bus_i2c import I2CBus
 
-from Adafruit_LED_Backpack import Matrix8x8
+try:
+    from Adafruit_LED_Backpack import Matrix8x8
+except:
+    logger.exception("Can't import Adafruit_LED_Backpack")
+
 
 ##############################################################
 #Check that we are in sync with the official command classes
@@ -86,7 +90,7 @@ class M8X8Component(JNTComponent):
         """Check that the component is 'available'
 
         """
-        return True
+        return self.display is not None
 
     def start(self, mqttc):
         """Start the bus
