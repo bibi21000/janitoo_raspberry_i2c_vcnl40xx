@@ -55,7 +55,7 @@ data_files = []
 data_files_config(data_files, 'docs','src/docs/','*')
 
 setup(
-    name = 'janitoo_raspberry_i2c_vcln40xx',
+    name = 'janitoo_raspberry_i2c_vcnl40xx',
     description = "A server which handle many controller (hardware, onewire, i2c, ...) dedicated to the raspberry",
     long_description = "A server which handle many controller (hardware, onewire, i2c, ...) dedicated to the raspberry",
     author='Sébastien GALLET aka bibi2100 <bibi21000@gmail.com>',
@@ -99,8 +99,8 @@ setup(
       'https://github.com/adafruit/Adafruit_Python_VCNL40xx/archive/master.zip#egg=Adafruit_VCNL40xx',
     ],
     entry_points = {    "janitoo.components": [
-        "rpii2c.vcln4000 = janitoo_raspberry_i2c_vcln40xx.vcln40xx:make_vcln4000",
-        "rpii2c.vcln4010 = janitoo_raspberry_i2c_vcln40xx.vcln40xx:make_vcln4010",
+        "rpii2c.vcnl4000 = janitoo_raspberry_i2c_vcnl40xx.vcnl40xx:make_vcnl4000",
+        "rpii2c.vcnl4010 = janitoo_raspberry_i2c_vcnl40xx.vcnl40xx:make_vcnl4010",
         ],
     },
 )

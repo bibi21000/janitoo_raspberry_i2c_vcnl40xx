@@ -53,7 +53,7 @@ class TestVCNL40XXSerser(JNTTServer, JNTTServerCommon):
     broker_user = 'toto'
     broker_password = 'toto'
     server_class = PiServer
-    server_conf = "tests/data/janitoo_raspberry_i2c_vcln40xx.conf"
+    server_conf = "tests/data/janitoo_raspberry_i2c_vcnl40xx.conf"
     hadds = [HADD%(144,0), HADD%(144,1), HADD%(144,2)]
 
     def test_011_start_reload_stop(self):
