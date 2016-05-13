@@ -1,0 +1,14 @@
+janitoo_raspberry_i2c_vcnl40xx package
+======================================
+
+Show janitoo's extensions.
+
+Core extensions
+---------------
+
+Components
+^^^^^^^^^^
+
+ - rpii2c.vcnl4000 (janitoo_raspberry_i2c_vcnl40xx.vcnl40xx:make_vcnl4000)
+ - rpii2c.vcnl4010 (janitoo_raspberry_i2c_vcnl40xx.vcnl40xx:make_vcnl4010)
+
