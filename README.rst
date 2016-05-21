@@ -6,6 +6,14 @@
     :target: https://coveralls.io/github/bibi21000/janitoo_raspberry_i2c_vcnl40xx?branch=master
     :alt: Coveralls results
 
+.. image:: https://landscape.io/github/bibi21000/janitoo_raspberry_i2c_vcnl40xx/master/landscape.svg?style=flat
+   :target: https://landscape.io/github/bibi21000/janitoo_raspberry_i2c_vcnl40xx/master
+   :alt: Code Health
+
+.. image:: https://img.shields.io/badge/Documenation-ok-brightgreen.svg?style=flat
+   :target: https://bibi21000.github.io/janitoo_raspberry_i2c_vcnl40xx/index.html
+   :alt: Documentation
+
 ===============
 The README file
 ===============
