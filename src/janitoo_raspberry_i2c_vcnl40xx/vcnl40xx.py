@@ -41,7 +41,7 @@ from janitoo_raspberry_i2c.bus_i2c import I2CBus
 
 try:
     from Adafruit_VCNL40xx import VCNL40xx
-except:
+except Exception:
     logger.exception("Can't import Adafruit_VCNL40xx")
 
 ##############################################################
@@ -118,7 +118,7 @@ class VCLN4000Component(JNTComponent):
         self._bus.i2c_acquire()
         try:
             self.vcnl = Adafruit_VCNL40xx.VCNL4000(address=self.values["addr"].data, i2c=self._bus._ada_i2c)
-        except:
+        except Exception:
             logger.exception("[%s] - Can't start component", self.__class__.__name__)
         finally:
             self._bus.i2c_release()
@@ -134,7 +134,7 @@ class VCLN4000Component(JNTComponent):
         try:
             data = self.vcnl.read_proximity()
             ret = float(data)
-        except:
+        except Exception:
             logger.exception('[%s] - Exception when retrieving proximity', self.__class__.__name__)
             ret = None
         finally:
@@ -146,7 +146,7 @@ class VCLN4000Component(JNTComponent):
         try:
             data = self.vcnl.read_ambient()
             ret = float(data)
-        except:
+        except Exception:
             logger.exception('[%s] - Exception when retrieving ambient', self.__class__.__name__)
             ret = None
         finally:
@@ -173,7 +173,7 @@ class VCLN4010Component(VCLN4000Component):
         self._bus.i2c_acquire()
         try:
             self.vcnl = Adafruit_VCNL40xx.VCNL4010(address=self.values["addr"].data, i2c=self._bus._ada_i2c)
-        except:
+        except Exception:
             logger.exception("[%s] - Can't start component", self.__class__.__name__)
         finally:
             self._bus.i2c_release()
