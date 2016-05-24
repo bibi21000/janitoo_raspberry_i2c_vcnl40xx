@@ -58,6 +58,8 @@ assert(COMMAND_DESC[COMMAND_WEB_RESOURCE] == 'COMMAND_WEB_RESOURCE')
 assert(COMMAND_DESC[COMMAND_DOC_RESOURCE] == 'COMMAND_DOC_RESOURCE')
 ##############################################################
 
+from janitoo_raspberry_i2c import OID
+
 def make_vcnl4000(**kwargs):
     return VCLN4000Component(**kwargs)
 
@@ -70,7 +72,7 @@ class VCLN4000Component(JNTComponent):
     def __init__(self, bus=None, addr=None, **kwargs):
         """
         """
-        oid = kwargs.pop('oid', 'rpii2c.vcnl4000')
+        oid = kwargs.pop('oid', '%s.vcnl4000'%OID)
         name = kwargs.pop('name', "Input")
         product_name = kwargs.pop('product_name', "VCLN4000 proximity detector")
         product_type = kwargs.pop('product_type', "VCLN4000 proximity detector")
@@ -159,7 +161,7 @@ class VCLN4010Component(VCLN4000Component):
     def __init__(self, bus=None, addr=None, **kwargs):
         """
         """
-        oid = kwargs.pop('oid', 'rpii2c.vcnl4010')
+        oid = kwargs.pop('oid', '%s.vcnl4010'%OID)
         VCLN4000Component.__init__(self, oid=oid, bus=bus, addr=addr, **kwargs)
 
         self.values["addr"].help = 'The I2C address of the VCLN4010 component'
