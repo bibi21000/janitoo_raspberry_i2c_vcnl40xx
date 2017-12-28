@@ -1,0 +1,22 @@
+janitoo_raspberry_i2c_vcnl40xx package
+======================================
+
+Submodules
+----------
+
+janitoo_raspberry_i2c_vcnl40xx.vcnl40xx module
+----------------------------------------------
+
+.. automodule:: janitoo_raspberry_i2c_vcnl40xx.vcnl40xx
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: janitoo_raspberry_i2c_vcnl40xx
+    :members:
+    :undoc-members:
+    :show-inheritance:
